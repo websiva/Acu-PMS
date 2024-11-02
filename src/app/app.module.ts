@@ -8,6 +8,10 @@ import { HomeComponent } from './home/home.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { UpdatePageComponent } from './update-page/update-page.component';
 import { HealingDetailsComponent } from './healing-details/healing-details.component';
+import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -16,13 +20,19 @@ import { HealingDetailsComponent } from './healing-details/healing-details.compo
     HomeComponent,
     PatientDetailsComponent,
     UpdatePageComponent,
-    HealingDetailsComponent
+    HealingDetailsComponent,
+    AddNewPatientComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

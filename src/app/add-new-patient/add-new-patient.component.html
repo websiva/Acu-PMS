@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <h3 class="text-success fw-bold">New Patient Registration</h3>
+    <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="clinicPlace" class="form-label">Clinic Place:</label>
+              <select id="clinicPlace" formControlName="clinicPlace" class="form-select">
+                <option value="" disabled>Select clinic place</option>
+                <option *ngFor="let place of ['Udumalpet', 'Coimbatore', 'Dharapuram', 'Pollachi', 'Palani', 'Palladam', 'Pongalur', 'Chittode', 'Tiruppur']" [value]="place">
+                  {{ place }}
+                </option>
+              </select>
+              <div *ngIf="registrationForm.controls['clinicPlace'].invalid && registrationForm.controls['clinicPlace'].touched" class="text-danger">
+                Clinic place is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name:</label>
+              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter your name">
+              <div *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched" class="text-danger">
+                Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="age" class="form-label">Age:</label>
+              <input type="number" id="age" formControlName="age" class="form-control" placeholder="Enter your age">
+              <div *ngIf="registrationForm.controls['age'].invalid && registrationForm.controls['age'].touched" class="text-danger">
+                Age is required and must be a valid number.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phoneNumber" class="form-label">Phone Number:</label>
+              <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Enter your phone number">
+              <div *ngIf="registrationForm.controls['phoneNumber'].invalid && registrationForm.controls['phoneNumber'].touched" class="text-danger">
+                Phone number must be 10 digits.
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="address" class="form-label">Address:</label>
+              <input type="text" id="address" formControlName="address" class="form-control" placeholder="Enter your address">
+              <div *ngIf="registrationForm.controls['address'].invalid && registrationForm.controls['address'].touched" class="text-danger">
+                Address is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="occupation" class="form-label">Occupation:</label>
+              <input type="text" id="occupation" formControlName="occupation" class="form-control" placeholder="Enter your occupation">
+              <div *ngIf="registrationForm.controls['occupation'].invalid && registrationForm.controls['occupation'].touched" class="text-danger">
+                Occupation is required.
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="surgeryHistory" class="form-label">Surgery History (If none, enter N/A):</label>
+          <textarea id="surgeryHistory" formControlName="surgeryHistory" class="form-control" rows="3" maxlength="210" placeholder="Surgeries"></textarea>
+        </div>
+    
+        <div class="form-group">
+          <label for="previousHistory" class="form-label">Previous History:</label>
+          <textarea id="previousHistory" formControlName="previousHistory" class="form-control" rows="5" maxlength="210" placeholder="Previous medical history"></textarea>
+        </div>
+    
+        <div class="form-group">
+          <label for="symptoms" class="form-label">Current Symptoms:</label>
+          <textarea id="symptoms" formControlName="symptoms" class="form-control" rows="5" maxlength="210" placeholder="Describe current symptoms"></textarea>
+        </div>
+    
+        <div class="form-group">
+          <label for="complaints" class="form-label">Complaints:</label>
+          <textarea id="complaints" formControlName="complaints" class="form-control" rows="3" maxlength="210" placeholder="Complaints"></textarea>
+        </div>
+    
+        <div class="buttons w-100 d-flex justify-content-center">
+          <button type="submit" class="btn btn-success w-25 mt-3" [disabled]="registrationForm.invalid">Register</button>
+        </div>
+      </form>
+</div>

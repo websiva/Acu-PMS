@@ -1,1 +1,40 @@
-<p>patient-details works!</p>
+<div class="container mt-4">
+    <div class="filter-section row mb-4">
+        <div class="clinic col-md-6">
+            <label for="clinic-filter" class="form-label">Select clinic:</label>
+            <select (change)="filterByClinic($event)" name="clinic" id="clinic-filter" class="form-select">
+                <option *ngFor="let clinic of clinicPlaces" [value]="clinic">{{clinic}}</option>
+            </select>
+        </div>
+        <div class="id-search col-md-6">
+            <label for="id-search" class="form-label">Enter ID to search:</label>
+            <input type="text" class="form-control" placeholder="patient ID" id="id-search" (keyup)="searchById($event)">
+        </div>
+    </div>
+    <h3>Patient List</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Clinic Place</th>
+          <th>Phone Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of paginatedPatients">
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.age }}</td>
+          <td>{{ patient.clinicPlace }}</td>
+          <td>{{ patient.phoneNumber }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm">See All Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>-->
+  </div>
