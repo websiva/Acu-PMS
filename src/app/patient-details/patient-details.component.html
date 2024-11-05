@@ -1,40 +1,82 @@
 <div class="container mt-4">
+  <form [formGroup]="filterForm">
     <div class="filter-section row mb-4">
-        <div class="clinic col-md-6">
-            <label for="clinic-filter" class="form-label">Select clinic:</label>
-            <select (change)="filterByClinic($event)" name="clinic" id="clinic-filter" class="form-select">
-                <option *ngFor="let clinic of clinicPlaces" [value]="clinic">{{clinic}}</option>
-            </select>
-        </div>
-        <div class="id-search col-md-6">
-            <label for="id-search" class="form-label">Enter ID to search:</label>
-            <input type="text" class="form-control" placeholder="patient ID" id="id-search" (keyup)="searchById($event)">
-        </div>
+      <div class="clinic col-md-6">
+        <label for="clinic-filter" class="form-label">Select clinic:</label>
+        <select (change)="filterByClinic()" formControlName="clinicName" name="clinic" id="clinic-filter"
+          class="form-select">
+          <option *ngFor="let clinic of clinicPlaces" [value]="clinic">{{clinic}}</option>
+        </select>
+      </div>
+      <div class="id-search col-md-6">
+        <label for="id-search" class="form-label">Enter ID to search:</label>
+        <input type="text" class="form-control" formControlName="id" placeholder="patient ID" id="id-search"
+          (keyup)="onKeyUpSearchbyId($event)">
+      </div>
     </div>
-    <h3>Patient List</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Clinic Place</th>
-          <th>Phone Number</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let patient of paginatedPatients">
-          <td>{{ patient.id }}</td>
-          <td>{{ patient.name }}</td>
-          <td>{{ patient.age }}</td>
-          <td>{{ patient.clinicPlace }}</td>
-          <td>{{ patient.phoneNumber }}</td>
-          <td>
-            <button class="btn btn-primary btn-sm">See All Details</button>
-          </td>
-        </tr>
-      </tbody>
+  </form>
+  <h3>Patient List</h3>
+  <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll-viewport">
+    <table cdk-table [dataSource]="paginatedPatients" class="table table-striped">
+      <ng-container cdkColumnDef="id">
+        <th cdk-header-cell *cdkHeaderCellDef>ID</th>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.id }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="name">
+        <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.name }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="age">
+        <th cdk-header-cell *cdkHeaderCellDef>Age</th>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.age }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="clinicPlace">
+        <th cdk-header-cell *cdkHeaderCellDef>Clinic Place</th>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.clinicPlace }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="phoneNumber">
+        <th cdk-header-cell *cdkHeaderCellDef>Phone Number</th>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.phoneNumber }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="actions">
+        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <td cdk-cell *cdkCellDef="let patient">
+          <button class="btn btn-primary btn-sm" (click)="seeAllDetails(patient.id)">See All Details</button>
+        </td>
+      </ng-container>
+
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>-->
-  </div>
+  </cdk-virtual-scroll-viewport>
+  <!--<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Clinic Place</th>
+        <th>Phone Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of paginatedPatients">
+        <td>{{ patient.id }}</td>
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.age }}</td>
+        <td>{{ patient.clinicPlace }}</td>
+        <td>{{ patient.phoneNumber }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm">See All Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>-->
+  <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>-->
+</div>

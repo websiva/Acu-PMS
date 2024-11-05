@@ -12,6 +12,8 @@ import { AddNewPatientComponent } from './add-new-patient/add-new-patient.compon
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ScrollingModule,
+    CdkTableModule
   ],
   providers: [
     provideAnimationsAsync()

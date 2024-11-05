@@ -6,3 +6,8 @@ th{
 td{
     text-align: center;
 }
+
+cdk-virtual-scroll-viewport{
+    height: 600px; /* Adjust as needed */
+    overflow: auto;
+}
