@@ -43,7 +43,7 @@ export class PatientService {
   }
 
   getAllClinics():Observable<string[]>{
-    const newArray = this.patients.map((patient)=>patient.ClinicPlace);
+    const newArray = this.patients.map((patient)=>patient.clinicPlace);
     const uniqueClinicPlaces = Array.from(new Set(newArray));
     return of(['All',...uniqueClinicPlaces]);
   }

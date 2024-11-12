@@ -111,6 +111,7 @@ export class PatientDetailsComponent implements OnInit {
   seeAllDetails(id:string){
     this.patientService.getPatientById(id).subscribe(data=>{
       this.patient = data;
+      console.log(data);
       this.getVisits(id);
     });
   }
