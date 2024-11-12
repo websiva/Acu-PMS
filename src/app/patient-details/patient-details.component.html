@@ -20,7 +20,7 @@
     <table cdk-table [dataSource]="paginatedPatients" class="table table-striped">
       <ng-container cdkColumnDef="id">
         <th cdk-header-cell *cdkHeaderCellDef>ID</th>
-        <td cdk-cell *cdkCellDef="let patient">{{ patient.id }}</td>
+        <td cdk-cell *cdkCellDef="let patient">{{ patient.patientId }}</td>
       </ng-container>
 
       <ng-container cdkColumnDef="name">
@@ -46,7 +46,8 @@
       <ng-container cdkColumnDef="actions">
         <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
         <td cdk-cell *cdkCellDef="let patient">
-          <button class="btn btn-primary btn-sm" (click)="seeAllDetails(patient.id)">See All Details</button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#residentDetail"
+            (click)="seeAllDetails(patient.patientId)">See Details</button>
         </td>
       </ng-container>
 
@@ -54,29 +55,82 @@
       <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </cdk-virtual-scroll-viewport>
-  <!--<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Clinic Place</th>
-        <th>Phone Number</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let patient of paginatedPatients">
-        <td>{{ patient.id }}</td>
-        <td>{{ patient.name }}</td>
-        <td>{{ patient.age }}</td>
-        <td>{{ patient.clinicPlace }}</td>
-        <td>{{ patient.phoneNumber }}</td>
-        <td>
-          <button class="btn btn-primary btn-sm">See All Details</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>-->
-  <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>-->
+</div>
+
+<div class="modal fade" id="residentDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Resident Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container mt-5 w-100 mx-auto">
+              <h3 class="text-center text-success">Patient Details</h3>
+              <div class="patient-details mb-4">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <h5>Name:</h5>  
+                          <h5>{{ patient?.Name}}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Age:</h5> 
+                          <h5>{{ patient?.Age }}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Phone:</h5> 
+                          <h5>{{ patient?.PhoneNumber }}</h5>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <h5>Address:</h5> 
+                          <h5>{{ patient?.Address }}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Gender:</h5> 
+                          <h5>{{ patient?.Gender }}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Surgery History:</h5> 
+                          <h5>{{ patient?.SurgeryHistory }}</h5>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <h5>Previous History:</h5> 
+                          <h5>{{ patient?.PreviousHistory }}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Symptoms:</h5> 
+                          <h5>{{ patient?.Symptoms }}</h5>
+                      </div>
+                      <div class="col-md-4">
+                          <h5>Complaints:</h5> 
+                          <h5>{{ patient?.Complaints }}</h5>
+                      </div>
+                  </div>
+              </div>
+              <h3 class="text-center text-success">Medical History</h3>
+              <table class="table table-bordered table-responsive">
+                  <thead>
+                      <tr>
+                          <th>Visit Date</th>
+                          <th>Acu Point</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let visit of patientVisits">
+                          <td>{{ visit.visitDate }}</td>
+                          <td>{{ visit.acuPoint }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between align-items-center px-md-5">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
 </div>

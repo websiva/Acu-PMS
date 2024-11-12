@@ -5,6 +5,7 @@ import { PatientService } from '../Services/patient.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { visit } from '../Interface/visit-details';
 
 @Component({
   selector: 'app-patient-details',
@@ -21,6 +22,9 @@ export class PatientDetailsComponent implements OnInit {
   selectedClinic: string = '';
   clinicPlaces:string[]=[];
 
+  patient: patient | undefined;
+  patientVisits:visit[]=[];
+
   private searchDebounceTimer:any;
 
   displayedColumns: string[] = ['id', 'name', 'age', 'clinicPlace', 'phoneNumber', 'actions'];
@@ -33,10 +37,19 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patients = this.patientService.getPatients();
-    this.paginatedPatients = this.patients;
-    this.filteredPatients=this.patients;
-    this.extractingClinic();
+    this.getAllPatients();
+  }
+
+  getAllPatients(){
+    this.patientService.getPatients().subscribe(data=>{
+      this.patients = data;
+      this.paginatedPatients = data;
+      this.filteredPatients = data;
+      console.log(data);
+      this.extractingClinic();
+    },error=>{
+      console.error('Error fetching patients data:', error);
+    });
   }
 
   /*updatePaginatedPatients(){
@@ -96,7 +109,17 @@ export class PatientDetailsComponent implements OnInit {
 
   //see all details 
   seeAllDetails(id:string){
-   const url =  this.router.createUrlTree(['visit-details'],{queryParams:{patientId:id}}).toString();
-   window.open(url,'_blank');
+    this.patientService.getPatientById(id).subscribe(data=>{
+      this.patient = data;
+      this.getVisits(id);
+    });
+  }
+
+  //get visits by patientId
+  getVisits(id:string){
+    this.patientService.getVisitsById(id).subscribe((data)=>{
+      this.patientVisits = data;
+      console.log(this.patientVisits);
+    })
   }
 }

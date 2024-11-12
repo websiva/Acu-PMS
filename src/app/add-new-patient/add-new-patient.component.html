@@ -1,5 +1,8 @@
 <div class="container-fluid">
     <h3 class="text-success fw-bold">New Patient Registration</h3>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
         <div class="row">
           <div class="col-md-6">
@@ -60,10 +63,15 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for="occupation" class="form-label">Occupation:</label>
-              <input type="text" id="occupation" formControlName="occupation" class="form-control" placeholder="Enter your occupation">
-              <div *ngIf="registrationForm.controls['occupation'].invalid && registrationForm.controls['occupation'].touched" class="text-danger">
-                Occupation is required.
+              <label for="gender" class="form-label">Gender:</label>
+              <select id="gender" formControlName="gender" class="form-select">
+                <option value="" disabled>Select gender</option>
+                <option *ngFor="let gender of ['Male','Female','Others']" [value]="gender">
+                  {{ gender }}
+                </option>
+              </select>
+              <div *ngIf="registrationForm.controls['gender'].invalid && registrationForm.controls['gender'].touched" class="text-danger">
+                Clinic place is required.
               </div>
             </div>
           </div>

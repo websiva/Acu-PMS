@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { LoginComponent } from './login/login.component';
 import { UpdatePageComponent } from './update-page/update-page.component';
-import { HealingDetailsComponent } from './healing-details/healing-details.component';
 import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
 
 const routes: Routes = [
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'patient-details', component: PatientDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'update', component: UpdatePageComponent },
-  { path: 'visit-details', component: HealingDetailsComponent },
   { path: 'add-new-patient', component: AddNewPatientComponent },
   { path: '**', redirectTo: '/home' }
 ];

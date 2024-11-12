@@ -10,15 +10,16 @@ import { PatientService } from '../Services/patient.service';
 })
 export class AddNewPatientComponent {
   registrationForm:FormGroup;
+  errorMessage:string="";
 
   constructor(private formbuilder:FormBuilder,private patientService:PatientService){
     this.registrationForm=this.formbuilder.group({
       clinicPlace: ['', Validators.required],
-      name: ['', Validators.required],
-      age: ['', [Validators.required, Validators.min(0)]],
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      age: ['', [Validators.required, Validators.min(1)]],
+      gender:['',Validators.required],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: ['', Validators.required],
-      occupation: ['', Validators.required],
       surgeryHistory: ['', Validators.maxLength(210)],
       previousHistory: ['', Validators.maxLength(210)],
       symptoms: ['', Validators.maxLength(210)],
@@ -29,7 +30,16 @@ export class AddNewPatientComponent {
     if (this.registrationForm.valid) {
       const newPatient: patient = this.registrationForm.value;
       console.log('New Patient:', newPatient);
-      this.patientService.addPatient(newPatient);
+      this.patientService.addPatient(newPatient).subscribe(
+        (response) => {
+          alert('Patient created successfully!');
+          this.registrationForm.reset();  // Reset the form after successful submission
+        },
+        (error) => {
+          this.errorMessage = error;  // Display error message
+          console.error('Error:', error);
+        }
+      );
     } else {
       console.log('Form is invalid');
     }

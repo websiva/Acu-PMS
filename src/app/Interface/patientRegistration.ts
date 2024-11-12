@@ -1,13 +1,12 @@
 export interface patient{
-    id:string;
-    clinicPlace: string;
-    name: string;
-    age: number;
-    phoneNumber: string;
-    address: string;
-    occupation: string;
-    surgeryHistory: string;
-    previousHistory: string;
-    symptoms: string;
-    complaints: string;  
+    ClinicPlace: string;
+    Name: string;
+    Age: number;
+    Gender:string;
+    PhoneNumber: string;
+    Address: string;
+    Symptoms: string;
+    Complaints: string;
+    SurgeryHistory: string;
+    PreviousHistory: string;
 }

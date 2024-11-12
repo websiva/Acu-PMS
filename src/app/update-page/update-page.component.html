@@ -1,1 +1,76 @@
-<p>update-page works!</p>
+<div class="container mt-5">
+    <div class="search-field row">
+        <!--<div class="col-md-4">
+            <label for="clinic" class="form-label">Select Clinic:</label>
+            <select name="clinic" id="clinic" class="form-select">
+                <option *ngFor="let clinic of clinicPlaces" [value]="clinic">{{clinic}}</option>
+            </select>
+        </div>-->
+        <div class="col-md-8">
+            <label for="id" class="form-label">Enter patient Id:</label>
+            <input type="text" id="id" class="form-control" placeholder="Search" [(ngModel)]="patientId"
+                name="patientId">
+        </div>
+        <div class="col-md-4 d-flex justify-content-center align-items-end">
+            <button class="btn btn-primary w-75" (click)="searchPatient()">Search</button>
+        </div>
+    </div>
+    <p class="search-result" *ngIf="searchResult.length>0">{{searchResult}}</p>
+    <div class="search-details row mt-5">
+        <div class="col-md-4 name">
+            <h5>Name:</h5>
+            <h5>{{patient?.Name}}</h5>
+        </div>
+        <div class="col-md-4 age">
+            <h5>Age:</h5>
+            <h5>{{patient?.Age}}</h5>
+        </div>
+        <div class="col-md-4 phonenumber">
+            <h5>Phone number:</h5>
+            <h5>{{patient?.PhoneNumber}}</h5>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="my-4 col-md-6">
+            <div class="update">
+                <h5 class="my-2">Update current details:</h5>
+                <form (ngSubmit)="UpdateVisit(form.value)" #form="ngForm">
+                    <label for="" class="form-label">Date: {{selectedDate}}</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="acu-point" class="form-label">Pressure point:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="acu-point" class="form-control" name="point"
+                                placeholder="Enter pressure point" [(ngModel)]="acuPoint">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class=" w-50 btn btn-success mt-4">Update</button>
+                    </div>
+                    <div *ngIf="feedBackMessage" class="bg-white">
+                        <p class="text-success">{{ feedBackMessage }}</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 previous-history p-4">
+            <h4>Previous Visits</h4>
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th>Visit Date</th>
+                        <th>Acu Point</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of patientVisits">
+                        <td>{{ visit.visitDate }}</td>
+                        <td>{{ visit.acuPoint }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

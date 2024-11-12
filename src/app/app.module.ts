@@ -7,13 +7,16 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { UpdatePageComponent } from './update-page/update-page.component';
-import { HealingDetailsComponent } from './healing-details/healing-details.component';
 import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,6 @@ import { CdkTableModule } from '@angular/cdk/table';
     HomeComponent,
     PatientDetailsComponent,
     UpdatePageComponent,
-    HealingDetailsComponent,
     AddNewPatientComponent
   ],
   imports: [
@@ -32,7 +34,11 @@ import { CdkTableModule } from '@angular/cdk/table';
     ReactiveFormsModule,
     MatPaginatorModule,
     ScrollingModule,
-    CdkTableModule
+    CdkTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync()
