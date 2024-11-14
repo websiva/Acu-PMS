@@ -20,6 +20,7 @@ export class UpdatePageComponent implements OnInit {
   patientVisits: visit[] = [];
   acuPoint: string = "";
   searchResult:string="";
+  phonenumber:string="";
 
   constructor(private patientService: PatientService) { }
 
@@ -46,22 +47,25 @@ export class UpdatePageComponent implements OnInit {
 
   UpdateVisit(formValue: any) {
     const acupoint = formValue.point ? formValue.point.toUpperCase() : '';
+    const clinic = this.patient?this.patient.clinicPlace:"";
     const Visit: newVisit = {
       PatientId: this.patientId,
-      AcuPoint: acupoint
+      AcuPoint: acupoint,
+      ClinicName:clinic
     };
 
     // Call the service to add the new visit
     this.patientService.addNewVisit(Visit).subscribe(
       (response:any) => {
-        this.feedBackMessage = response;
-        this.getVisits();  // Refresh visits
+        this.feedBackMessage = response;  // Refresh visits
+        this.getVisits();
       },
       (error:any) => {
         this.feedBackMessage = error;
       }
     );
 
+  this.getVisits();
   // Optionally reset the acuPoint field if needed
   this.acuPoint = "";
   this.patient= undefined;

@@ -1,0 +1,104 @@
+<div class="container-fluid p-2">
+    <div class="row patients-count m-md-3 p-md-3 p-2 g-5 m-0">
+        <div class="col-md-6">
+            <div class="row mb-5 g-5">
+                <div class="col-md-6">
+                    <div class="small-card">
+                        <img src="/assets/total-patients.svg" alt="">
+                        <div class="content">
+                            <h4>Total Patient's</h4>
+                            <h3 class="text-center my-3">{{totalPatientsCount}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="small-card">
+                        <img src="/assets/total-clinic.svg" alt="">
+                        <div class="content">
+                            <h4>Total No of Clinic</h4>
+                            <h3 class="text-center my-3">9</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="fw-medium text-success mb-4">Patient's Count By Clinic</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th>Clinic</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let clinic of patientCount">
+                                <td>{{clinic.clinicName}}</td>
+                                <td>{{clinic.patientCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="pieChart d-flex justify-content-center" style="height: 350px;">
+                        <canvas id="pie-chart">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row mb-5 g-5">
+                <div class="col-md-6">
+                    <div class="small-card">
+                        <img src="/assets/last-week.svg" alt="">
+                        <div class="content">
+                            <h4>Clinic Visits (Last 7 Days)</h4>
+                            <h3 class="text-center my-3">{{lastWeekVisits}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="small-card">
+                        <img src="/assets/last-month.svg" alt="">
+                        <div class="content">
+                            <h4>Clinic Visits (Last 1 Month)</h4>
+                            <h3 class="text-center my-3">{{lastMonthVisits}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="fw-medium text-success mb-4">Patient's Visits History</h4>
+            <div class="row visitors-count">
+                <div class="barChart">
+                    <canvas id="bar-chart"></canvas>
+                </div>
+            </div>
+            <div class="row buttons-group mt-4">
+                <div class="col-4 col-md-2 d-flex justify-content-center">
+                    <button class="btn btn-outline-primary" (click)="lastseven()">Last 7 days</button>
+                </div>
+                <div class="col-4 col-md-2 d-flex justify-content-center">
+                    <button class="btn btn-outline-primary" (click)="lastmonth()">Last 1 Month</button>
+                </div>
+                <div class="col-4 col-md-2 d-flex justify-content-center">
+                    <button class="btn btn-outline-primary" (click)="last3month()">Last 3 Month</button>
+                </div>
+                <div class="col-12 col-md-1 d-flex justify-content-center my-3 my-md-0">
+                    <p class="text-center fs-5 m-0">or</p>
+                </div>
+                <div class="col-5 col-md-2 d-flex justify-content-center">
+                    <input type="date" class="form-control" [max]="todayDate" (change)="customDate()"
+                        [(ngModel)]="fromDate">
+                </div>
+                <div class="col-2 col-md-1 d-flex justify-content-center">
+                    <p class="text-center fs-5 m-0">to</p>
+                </div>
+                <div class="col-5 col-md-2 d-flex justify-content-center">
+                    <input type="date" class="form-control" [max]="todayDate" (change)="customDate()"
+                        [(ngModel)]="toDate">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

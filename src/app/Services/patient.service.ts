@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { patient } from '../Interface/patientRegistration';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { visit } from '../Interface/visit-details';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { patientTableData } from '../Interface/patientTable';
 import { newVisit } from '../Interface/newVisit';
+import { patientCountByClinic } from '../Interface/patientsCountByClinic';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,9 @@ export class PatientService {
         if (error.status === 500) {
           errorMessage = 'Server error. Please try again later.';
         } 
+        else if(error.status==409){
+          errorMessage = 'Already user available with same phonenumber and name.'
+        }
         return throwError(errorMessage);
       })
     );
@@ -76,5 +80,22 @@ export class PatientService {
   //fetch visit by id
   getVisitsById(id:string):Observable<visit[]>{
     return this.httpClient.get<visit[]>(`${this.apiUrl}Visits/GetVisitsById?id=${id}`);
+  }
+
+  //get patient counts by clinicwise
+  getPatientsByClinicwise():Observable<patientCountByClinic[]>{
+    return this.httpClient.get<patientCountByClinic[]>(`${this.apiUrl}Patient/GetPatientCountByClinic`);
+  }
+
+  //get visits
+  getPreviousVisits(rangeOption:number,startDate?:Date,endDate?:Date):Observable<patientCountByClinic[]>{
+    let params = new HttpParams().set('rangeOption',rangeOption);
+
+    if(rangeOption===4&&startDate&&endDate){
+      params = params.set('customStart',startDate.toISOString())
+                      .set('customEnd',endDate.toISOString());
+    }
+
+    return this.httpClient.get<patientCountByClinic[]>(`${this.apiUrl}Visits/visitCounts`,{params})
   }
 }

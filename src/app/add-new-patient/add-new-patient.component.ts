@@ -9,15 +9,15 @@ import { PatientService } from '../Services/patient.service';
   styleUrl: './add-new-patient.component.scss'
 })
 export class AddNewPatientComponent {
-  registrationForm:FormGroup;
-  errorMessage:string="";
+  registrationForm: FormGroup;
+  errorMessage: string = "";
 
-  constructor(private formbuilder:FormBuilder,private patientService:PatientService){
-    this.registrationForm=this.formbuilder.group({
+  constructor(private formbuilder: FormBuilder, private patientService: PatientService) {
+    this.registrationForm = this.formbuilder.group({
       clinicPlace: ['', Validators.required],
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
       age: ['', [Validators.required, Validators.min(1)]],
-      gender:['',Validators.required],
+      gender: ['', Validators.required],
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: ['', Validators.required],
       surgeryHistory: ['', Validators.maxLength(210)],
@@ -26,11 +26,17 @@ export class AddNewPatientComponent {
       complaints: ['', Validators.maxLength(210)]
     });
   }
-  submit(){
+  submit() {
     if (this.registrationForm.valid) {
-      const newPatient: patient = this.registrationForm.value;
-      console.log('New Patient:', newPatient);
-      this.patientService.addPatient(newPatient).subscribe(
+      const formData: patient = this.registrationForm.value;
+      // Replace empty fields with 'N/A'
+      formData.surgeryHistory = formData.surgeryHistory || 'N/A';
+      formData.previousHistory = formData.previousHistory || 'N/A';
+      formData.symptoms = formData.symptoms || 'N/A';
+      formData.complaints = formData.complaints || 'N/A';
+
+      
+      this.patientService.addPatient(formData).subscribe(
         (response) => {
           alert('Patient created successfully!');
           this.registrationForm.reset();  // Reset the form after successful submission

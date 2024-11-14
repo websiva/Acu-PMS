@@ -1,4 +1,5 @@
 export interface newVisit{
     PatientId:string,
-    AcuPoint:string
+    AcuPoint:string,
+    ClinicName:string
 }

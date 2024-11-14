@@ -3,17 +3,23 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin: 25px 0;
 }
 h3{
     font-size: 28px;
-    margin-bottom: 20px;
+}
+.row{
+    margin: 20px 0;
 }
 form{
     width: 100%;
     max-width: 1200px;
+}
+label{
+    font-weight: 500;
+    color: var(--login-color);
 }
 
 .form-group{

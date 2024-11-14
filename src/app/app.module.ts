@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule
   ],
   providers: [
     provideAnimationsAsync()

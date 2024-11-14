@@ -1,15 +1,14 @@
 <div class="container mt-5">
     <div class="search-field row">
-        <!--<div class="col-md-4">
-            <label for="clinic" class="form-label">Select Clinic:</label>
-            <select name="clinic" id="clinic" class="form-select">
-                <option *ngFor="let clinic of clinicPlaces" [value]="clinic">{{clinic}}</option>
-            </select>
-        </div>-->
-        <div class="col-md-8">
+        <div class="col-md-4">
             <label for="id" class="form-label">Enter patient Id:</label>
             <input type="text" id="id" class="form-control" placeholder="Search" [(ngModel)]="patientId"
                 name="patientId">
+        </div>
+        <div class="col-md-4">
+            <label for="pnumber" class="form-label">Enter phonenumber:</label>
+            <input type="text" id="pnumber" class="form-control" placeholder="Phonenumber" [(ngModel)]="phonenumber"
+                name="patientPhonenumber">
         </div>
         <div class="col-md-4 d-flex justify-content-center align-items-end">
             <button class="btn btn-primary w-75" (click)="searchPatient()">Search</button>
