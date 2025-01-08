@@ -22,7 +22,7 @@ export class PatientDetailsComponent implements OnInit {
   selectedClinic: string = '';
   clinicPlaces:string[]=[];
 
-  patient: patient | undefined;
+  patient: patient|undefined;
   patientVisits:visit[]=[];
 
   private searchDebounceTimer:any;

@@ -4,6 +4,7 @@ import { patient } from '../Interface/patientRegistration';
 import { visit } from '../Interface/visit-details';
 import { newVisit } from '../Interface/newVisit';
 import { HttpErrorResponse } from '@angular/common/http';
+import { updatePatient } from '../Interface/updatePatient';
 
 @Component({
   selector: 'app-update-page',
@@ -11,16 +12,17 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './update-page.component.scss'
 })
 export class UpdatePageComponent implements OnInit {
-  patient: patient | undefined;
+  patients: updatePatient[] =[];
   originalDate: Date = new Date();
   selectedDate: string = new Date().toLocaleDateString();
   patientId: string = "";
+  phonenumber:string="";
+  clinic:string="";
   clinicPlaces: string[] = [];
   feedBackMessage: string = "";
   patientVisits: visit[] = [];
   acuPoint: string = "";
   searchResult:string="";
-  phonenumber:string="";
 
   constructor(private patientService: PatientService) { }
 
@@ -35,23 +37,43 @@ export class UpdatePageComponent implements OnInit {
   }
 
   searchPatient() {
-    this.patientService.getPatientById(this.patientId.trim().toUpperCase()).subscribe(data => {
-      this.patient = data;
-      this.searchResult = "Patient fetched successfully.."
-    },error=>{
-      this.searchResult = "Patient not available"
-    });
+    if(this.phonenumber.length===10){
+      this.patientService.getPatientsByPhone(this.phonenumber).subscribe(data => {
+        this.patients = data;
+        console.log(data);
+        this.searchResult = "Patient fetched successfully.."
+      },error=>{
+        this.searchResult = "Patient not available"
+      });
+    }
+    else if(this.patientId.length===8){
+      this.patientService.getPatientsById(this.patientId.trim().toUpperCase()).subscribe(data => {
+        this.patients = data;
+        console.log(data);
+        this.searchResult = "Patient fetched successfully.."
+      },error=>{
+        this.searchResult = "Patient not available"
+      });
+    }
+  }
+
+  searchPatientByPhone(){
+    
+  }
+
+  selectedUser(id:string,place:string){
+    this.patientId=id;
+    this.clinic=place;
     this.getVisits();
     this.feedBackMessage = "";
   }
 
   UpdateVisit(formValue: any) {
     const acupoint = formValue.point ? formValue.point.toUpperCase() : '';
-    const clinic = this.patient?this.patient.clinicPlace:"";
     const Visit: newVisit = {
       PatientId: this.patientId,
       AcuPoint: acupoint,
-      ClinicName:clinic
+      ClinicName:this.clinic
     };
 
     // Call the service to add the new visit
@@ -65,10 +87,11 @@ export class UpdatePageComponent implements OnInit {
       }
     );
 
-  this.getVisits();
+    
   // Optionally reset the acuPoint field if needed
   this.acuPoint = "";
-  this.patient= undefined;
+  this.phonenumber="";
+  this.patients= [];
   this.patientId = "";
   this.patientVisits=[];
   }

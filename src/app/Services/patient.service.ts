@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { patientTableData } from '../Interface/patientTable';
 import { newVisit } from '../Interface/newVisit';
 import { patientCountByClinic } from '../Interface/patientsCountByClinic';
+import { updatePatient } from '../Interface/updatePatient';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,14 @@ export class PatientService {
 
   getPatientById(id: string): Observable<patient> {
     return this.httpClient.get<patient>(`${this.apiUrl}Patient/GetPatientById?id=${id}`);
+  }
+
+  getPatientsById(id:string): Observable<updatePatient[]>{
+    return this.httpClient.get<updatePatient[]>(`${this.apiUrl}Patient/GetPatientByIdForUpdate?id=${id}`);
+  }
+
+  getPatientsByPhone(phone:string):Observable<updatePatient[]>{
+    return this.httpClient.get<updatePatient[]>(`${this.apiUrl}Patient/GetPatientByPhone?phone=${phone}`)
   }
 
   getAllClinics():Observable<string[]>{
